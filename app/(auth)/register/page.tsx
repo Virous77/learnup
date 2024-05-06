@@ -10,8 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icon";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import RegisterForm from "./form";
+import Link from "next/link";
 
 const RegisterPage = () => {
   return (
@@ -21,7 +21,7 @@ const RegisterPage = () => {
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Create an account</CardTitle>
             <CardDescription>
-              Enter your email below to create your account
+              Enter your credentials below to create your account
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
@@ -45,17 +45,20 @@ const RegisterPage = () => {
                 </span>
               </div>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="m@example.com" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" />
-            </div>
+            <RegisterForm />
           </CardContent>
-          <CardFooter>
-            <Button className="w-full">Create account</Button>
+          <CardFooter className="flex items-center justify-center">
+            <div className="text-center flex gap-2 items-center">
+              <span className="text-muted-foreground text-[14px]">
+                Already have an account?
+              </span>
+              <Link
+                href="/login"
+                className="text-primary text-[14px] hover:underline hover:underline-offset-4"
+              >
+                Sign in
+              </Link>
+            </div>
           </CardFooter>
         </Card>
       </section>
