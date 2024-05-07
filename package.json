@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:migrate": "node ./db/migrate.js",
+    "db:generate": "npx drizzle-kit push:pg"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.1",

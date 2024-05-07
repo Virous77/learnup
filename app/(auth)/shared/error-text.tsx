@@ -10,7 +10,9 @@ const ErrorText = ({
   return (
     <div className=" -mt-1">
       {error.map((error) => (
-        <p key={error as string}>{error}</p>
+        <p className="text-red-500 text-[13px]" key={error as string}>
+          {error}
+        </p>
       ))}
       {error.length === 0 && (
         <p className="text-red-500 text-[13px]">{children}</p>

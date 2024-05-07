@@ -8,33 +8,28 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import BounceLoader from "@/components/ui/bounceloader";
-import { useRouter } from "next/navigation";
 
-export const RegisterForm = () => {
-  const { push } = useRouter();
-  const { reset, useStore, Subscribe, handleSubmit, Field } =
-    formFactory.useForm({
-      validators: {
-        onSubmitAsync: async ({ value }) => {
-          try {
-            const schemaResult = schema.safeParse(value);
-            if (!schemaResult.success) {
-              return schemaResult.error.errors[0].message;
-            }
-            const res = await action(value);
-            if (!res.status) {
-              toast.error(res.message);
-              return;
-            }
-            reset();
-            toast.success(res.message);
-            push("/login");
-          } catch (error) {
-            toast.error("Something went wrong");
+const LoginForm = () => {
+  const { useStore, Subscribe, handleSubmit, Field } = formFactory.useForm({
+    validators: {
+      onSubmitAsync: async ({ value }) => {
+        try {
+          const schemaResult = schema.safeParse(value);
+          if (!schemaResult.success) {
+            return schemaResult.error.errors[0].message;
           }
-        },
+
+          const res = await action(value);
+          if (res && !res?.status) {
+            toast.error(res?.message);
+            return;
+          }
+        } catch (error) {
+          toast.error("Something went wrong");
+        }
       },
-    });
+    },
+  });
 
   const formErrors = useStore((formState) => formState.errors);
   const serverErrors = formErrors.reduce((acc, curr) => {
@@ -52,25 +47,6 @@ export const RegisterForm = () => {
       }}
       className=" flex flex-col gap-3"
     >
-      <Field name="name">
-        {(field) => {
-          return (
-            <fieldset className=" grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                name="name"
-                type="text"
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-              />
-              <ErrorText error={field.state.meta.errors}>
-                {serverErrors?.name}
-              </ErrorText>
-            </fieldset>
-          );
-        }}
-      </Field>
-
       <Field name="email">
         {(field) => {
           return (
@@ -119,4 +95,4 @@ export const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

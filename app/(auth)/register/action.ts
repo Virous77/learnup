@@ -1,6 +1,6 @@
 "use server";
 
-import formFactory from "./form-instance";
+import formFactory, { schema } from "./form-instance";
 const initialState = formFactory.initialFormState.values!;
 export type TResult = typeof initialState;
 import db from "@/db";
@@ -8,36 +8,39 @@ import { user } from "@/db/schema";
 import argon2 from "argon2";
 import { nanoid } from "nanoid";
 
-const getFormData = (formData: FormData) => {
-  const result = {} as TResult;
+const action = async (formData: TResult) => {
+  const res = schema.safeParse(formData);
 
-  formData.forEach((data, key) => {
-    if (key.includes("$ACTION")) return;
-    (result as any)[key] = data;
-  });
-  return result;
-};
-
-const action = async (prev: unknown, formData: FormData) => {
-  const res = await formFactory.validateFormData(formData);
-  if (res.errors && res.errors?.length > 0) return res;
-
-  const data = getFormData(formData);
-  const { password, ...rest } = data;
-  const hashedPassword = await argon2.hash(password);
-
-  try {
-    await db.insert(user).values;
-    ({
-      id: nanoid(),
-      ...rest,
-      password: hashedPassword,
-    });
-  } catch (error) {
-    console.log(error);
+  if (!res.success) {
+    return {
+      message: res.error.errors[0].message,
+      status: false,
+    };
   }
 
-  return res;
+  const { password, ...rest } = formData;
+  const hashedPassword = await argon2.hash(password);
+  const isAlreadyRegistered = (await db.select().from(user)).find(
+    (user) => user.email === rest.email
+  );
+
+  if (isAlreadyRegistered) {
+    return {
+      message: "Email already registered",
+      status: false,
+    };
+  }
+
+  await db.insert(user).values({
+    ...rest,
+    password: hashedPassword,
+    id: nanoid(),
+  });
+
+  return {
+    message: "User registered successfully",
+    status: true,
+  };
 };
 
 export default action;
