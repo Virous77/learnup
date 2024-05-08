@@ -1,16 +1,6 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Icons } from "@/components/ui/icon";
-import Link from "next/link";
 import LoginForm from "./form";
 import { auth } from "@/auth/auth";
+import AuthUI from "../shared/auth-ui";
 
 const LoginPage = async () => {
   const user = await auth();
@@ -19,52 +9,9 @@ const LoginPage = async () => {
 
   return (
     <main className=" flex items-center justify-center h-screen">
-      <section className="w-[500px]">
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Create an account</CardTitle>
-            <CardDescription>
-              Enter your credentials below to create your account
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid grid-cols-2 gap-6">
-              <Button variant="outline">
-                <Icons.gitHub className="mr-2 h-4 w-4" />
-                Github
-              </Button>
-              <Button variant="outline">
-                <Icons.google className="mr-2 h-4 w-4" />
-                Google
-              </Button>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-            <LoginForm />
-          </CardContent>
-          <CardFooter className="flex items-center justify-center">
-            <div className="text-center flex gap-2 items-center">
-              <span className="text-muted-foreground text-[14px]">
-                Don&apos;t have an account?
-              </span>
-              <Link
-                href="/register"
-                className="text-primary text-[14px] hover:underline hover:underline-offset-4"
-              >
-                Sign up
-              </Link>
-            </div>
-          </CardFooter>
-        </Card>
-      </section>
+      <AuthUI type="login">
+        <LoginForm />
+      </AuthUI>
     </main>
   );
 };
