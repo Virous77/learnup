@@ -10,6 +10,7 @@ import {
 import { Icons } from "@/components/ui/icon";
 import RegisterForm from "./form";
 import Link from "next/link";
+import { signIn } from "@/auth/auth";
 
 const RegisterPage = () => {
   return (
@@ -28,10 +29,21 @@ const RegisterPage = () => {
                 <Icons.gitHub className="mr-2 h-4 w-4" />
                 Github
               </Button>
-              <Button variant="outline">
-                <Icons.google className="mr-2 h-4 w-4" />
-                Google
-              </Button>
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("github", {
+                    redirect: true,
+                    redirectTo: "/",
+                  });
+                }}
+                className="w-full"
+              >
+                <Button variant="outline" className="w-full">
+                  <Icons.google className="mr-2 h-4 w-4" />
+                  Google
+                </Button>
+              </form>
             </div>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
