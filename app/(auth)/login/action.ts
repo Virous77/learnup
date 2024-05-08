@@ -31,7 +31,10 @@ const action = async (formData: TResult) => {
   }
 
   const { password: existPassword, ...rest } = isUserExist;
-  const isPasswordMatch = await argon2.verify(existPassword, password);
+  const isPasswordMatch = existPassword.includes("$argon")
+    ? await argon2.verify(existPassword, password)
+    : existPassword === password;
+
   if (!isPasswordMatch) {
     return {
       message: "Password is incorrect",

@@ -1,10 +1,13 @@
 import db from "@/db";
 import { user } from "@/db/schema";
-import { nanoid } from "nanoid";
 import NextAuth, { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import { hc } from "hono/client";
+import { ICreateUser } from "@/app/api/v1/[[...route]]/route";
+
+const client = hc<ICreateUser>("http://localhost:3000");
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -37,7 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    session: async ({ session, token, user }) => {
+    session: async ({ session, token }) => {
       session.user.id = token.sub!;
       return session;
     },
@@ -45,7 +48,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       try {
         if (account?.provider === "github" || account?.provider === "google") {
           const { image, name, email } = userProvider;
-          const id = nanoid();
 
           if (!image || !name || !email) {
             throw new AuthError("Failed to sign in");
@@ -56,22 +58,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           );
 
           if (!isUserExist) {
-            await db
-              .insert(user)
-              .values({
-                id,
+            await client.api.v1.register.$post({
+              json: {
                 name,
                 email,
                 image,
-                password: "hello",
-                isVerified: true,
-              })
-              .returning();
+                type: account.provider,
+              },
+            });
+
+            return true;
           }
+        } else if (account?.provider === "credentials") {
           return true;
         }
         return false;
       } catch (error) {
+        console.log(error);
         throw new AuthError("Failed to sign in");
       }
     },

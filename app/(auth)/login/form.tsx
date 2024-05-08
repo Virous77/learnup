@@ -88,7 +88,7 @@ const LoginForm = () => {
         selector={(formState) => [formState.canSubmit, formState.isSubmitting]}
       >
         {([canSubmit, isPending]) => (
-          <Button>{isPending ? <BounceLoader /> : "Create Account"}</Button>
+          <Button>{isPending ? <BounceLoader /> : "Login"}</Button>
         )}
       </Subscribe>
     </form>
