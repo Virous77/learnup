@@ -6,13 +6,7 @@ import { nanoid } from "nanoid";
 import db from "@/db";
 import { user } from "@/db/schema";
 import { sendEmail } from "@/lib/email/resend";
-import type { PageConfig } from "next";
-
-export const config: PageConfig = {
-  api: {
-    bodyParser: false,
-  },
-};
+import aragon from "argon2";
 
 const app = new Hono().basePath("/api/v1/");
 
@@ -35,6 +29,7 @@ const createUser = app.post(
       const { name, email, type, image } = c.req.valid("json");
       const id = nanoid();
       const password = nanoid();
+      const hash = await aragon.hash(password);
       await db
         .insert(user)
         .values({
@@ -42,7 +37,7 @@ const createUser = app.post(
           name,
           email,
           image,
-          password,
+          password: hash,
           isVerified: true,
         })
         .returning();

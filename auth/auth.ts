@@ -10,6 +10,7 @@ import { ICreateUser } from "@/app/api/v1/[[...route]]/route";
 const client = hc<ICreateUser>("http://localhost:3000");
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   providers: [
     Credentials({
       name: "Credentials",
@@ -49,7 +50,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (account?.provider === "github" || account?.provider === "google") {
           const { image, name, email } = userProvider;
 
-          if (!image || !name || !email) {
+          if (!email) {
             throw new AuthError("Failed to sign in");
           }
 
@@ -60,15 +61,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!isUserExist) {
             await client.api.v1.register.$post({
               json: {
-                name,
+                name: name as string,
                 email,
-                image,
+                image: image as string,
                 type: account.provider,
               },
             });
-
-            return true;
           }
+          return true;
         } else if (account?.provider === "credentials") {
           return true;
         }
