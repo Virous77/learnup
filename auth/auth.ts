@@ -6,6 +6,7 @@ import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import { hc } from "hono/client";
 import { ICreateUser } from "@/app/api/v1/[[...route]]/route";
+import { eq } from "drizzle-orm";
 
 const client = hc<ICreateUser>("http://localhost:3000");
 
@@ -54,11 +55,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new AuthError("Failed to sign in");
           }
 
-          const isUserExist = (await db.select().from(user)).find(
-            (user) => user.email === email
-          );
+          const isUserExist = await db
+            .select()
+            .from(user)
+            .where(eq(user.email, email));
 
-          if (!isUserExist) {
+          if (isUserExist.length === 0) {
             await client.api.v1.register.$post({
               json: {
                 name: name as string,

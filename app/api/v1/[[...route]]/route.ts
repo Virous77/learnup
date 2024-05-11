@@ -27,20 +27,15 @@ const createUser = app.post(
   async (c) => {
     try {
       const { name, email, type, image } = c.req.valid("json");
-      const id = nanoid();
       const password = nanoid();
       const hash = await aragon.hash(password);
-      await db
-        .insert(user)
-        .values({
-          id,
-          name,
-          email,
-          image,
-          password: hash,
-          isVerified: true,
-        })
-        .returning();
+      await db.insert(user).values({
+        name,
+        email,
+        image,
+        password: hash,
+        isVerified: true,
+      });
       sendEmail(password, type);
       return c.json({ status: true });
     } catch (error) {

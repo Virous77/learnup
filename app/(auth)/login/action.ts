@@ -7,6 +7,7 @@ export type TResult = typeof initialState;
 import db from "@/db";
 import { user } from "@/db/schema";
 import argon2 from "argon2";
+import { eq } from "drizzle-orm";
 
 const action = async (formData: TResult) => {
   const res = schema.safeParse(formData);
@@ -19,18 +20,16 @@ const action = async (formData: TResult) => {
   }
 
   const { password, email } = formData;
-  const isUserExist = (await db.select().from(user)).find(
-    (user) => user.email === email
-  );
+  const isUserExist = await db.select().from(user).where(eq(user.email, email));
 
-  if (!isUserExist) {
+  if (isUserExist.length === 0) {
     return {
       message: "User not found",
       status: false,
     };
   }
 
-  const { password: existPassword, ...rest } = isUserExist;
+  const { password: existPassword, ...rest } = isUserExist[0];
   const isPasswordMatch = existPassword.includes("$argon")
     ? await argon2.verify(existPassword, password)
     : existPassword === password;
