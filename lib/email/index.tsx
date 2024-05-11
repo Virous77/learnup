@@ -21,23 +21,17 @@ export const LearnUpEmail = ({ password, type }: LearnUpEmailProps) => (
     <Preview>Confirm your email address</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section style={logoContainer}>
-          <Text
-            style={{ fontSize: "2rem", fontWeight: "bold", color: "#f97316" }}
-          >
-            Learnup
-          </Text>
-        </Section>
         <Heading style={h1}>Your Temporary Password</Heading>
         <Text
           style={{ fontSize: "20px", lineHeight: "24px", marginBottom: "20px" }}
         >
-          We glad to have you on board! We&apos;re excited to help you get
+          We glad to have you on board! We&apos;re excited to help you get your
+          learning journey started.
         </Text>
         <Text style={heroText}>
-          You just registered on Learnup using {type}. We created a temporary
+          You just registered on LearnX using {type}. We created a temporary
           password for you. With this password you can login and update your
-          password.
+          password and you can able to access your account using your email.
         </Text>
 
         <Section style={codeBox}>
@@ -45,7 +39,7 @@ export const LearnUpEmail = ({ password, type }: LearnUpEmailProps) => (
         </Section>
 
         <Text style={text}>
-          If you didn&apos;t created an account on Learnup, please ignore this
+          If you didn&apos;t created an account on LearnX, please ignore this
           email.
         </Text>
 
@@ -53,7 +47,7 @@ export const LearnUpEmail = ({ password, type }: LearnUpEmailProps) => (
           <Text
             style={{ fontSize: "2rem", fontWeight: "bold", color: "#f97316" }}
           >
-            Learnup
+            LearnX
           </Text>
         </Section>
       </Container>

@@ -25,7 +25,7 @@ const AuthUI: React.FC<TAuth> = ({ children, type }) => {
     type === "register" ? "Create an account" : "Sign in to your account";
 
   return (
-    <section className="w-[500px]">
+    <section className="md:w-[500px] w-[95%]">
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">{title}</CardTitle>

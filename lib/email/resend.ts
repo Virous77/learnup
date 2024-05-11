@@ -7,7 +7,7 @@ export const sendEmail = async (password: string, type: string) => {
   const data = await resend.emails.send({
     from: process.env.EMAIL!,
     to: process.env.SEND_TO!,
-    subject: "Welcome to Learnup!",
+    subject: "Welcome to !",
     react: LearnUpEmail({ password, type }),
   });
 

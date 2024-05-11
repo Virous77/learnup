@@ -15,10 +15,14 @@ export const user = pgTable(
     email: varchar("email").notNull().unique(),
     name: varchar("name"),
     image: varchar("image"),
-    created_at: timestamp("created_at").default(sql`now()`),
-    updated_at: timestamp("updated_at").default(sql`now()`),
+    created_at: timestamp("created_at")
+      .default(sql`now()`)
+      .notNull(),
+    updated_at: timestamp("updated_at")
+      .default(sql`now()`)
+      .notNull(),
     password: varchar("password").notNull(),
-    isVerified: boolean("isVerified").default(false),
+    isVerified: boolean("isVerified").default(false).notNull(),
   },
   (table) => {
     return {
@@ -26,3 +30,5 @@ export const user = pgTable(
     };
   }
 );
+
+export type IUser = typeof user.$inferSelect;
