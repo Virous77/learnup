@@ -31,10 +31,18 @@ const Navbar = async () => {
           {!session?.user?.email ? (
             <li className=" md:bg-accent md:rounded-[99px] inline-block md:px-6 py-2">
               <div className="bg-primary md:px-4 px-6 md:py-2 py-3 flex items-center gap-5 rounded-[99px]">
-                <Link href="/login" className="text-secondary font-[500]">
+                <Link
+                  href="/login"
+                  className="text-secondary font-[500]"
+                  aria-label="Login to your account"
+                >
                   Login
                 </Link>
-                <Link href="/register" className="text-secondary font-[500]">
+                <Link
+                  href="/register"
+                  className="text-secondary font-[500]"
+                  aria-label="Create a new account"
+                >
                   Sign Up
                 </Link>
               </div>

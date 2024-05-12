@@ -45,6 +45,7 @@ const ProfileDropdown: React.FC<TProfile> = ({ user }) => {
             <Link
               href="/profile"
               className=" flex items-center justify-between px-3 w-full"
+              aria-label="Account Settings"
             >
               <p>Account Settings</p>
               <Settings size={18} />
@@ -58,6 +59,7 @@ const ProfileDropdown: React.FC<TProfile> = ({ user }) => {
                 await signOut();
               }}
               className="px-3 w-full"
+              aria-label="Logout"
             >
               <Button
                 type="submit"

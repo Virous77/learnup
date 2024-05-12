@@ -112,7 +112,9 @@ export const RegisterForm = () => {
         selector={(formState) => [formState.canSubmit, formState.isSubmitting]}
       >
         {([canSubmit, isPending]) => (
-          <Button>{isPending ? <BounceLoader /> : "Create Account"}</Button>
+          <Button>
+            {isPending ? <BounceLoader color="bg-white" /> : "Create Account"}
+          </Button>
         )}
       </Subscribe>
     </form>
