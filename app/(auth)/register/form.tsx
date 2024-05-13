@@ -21,7 +21,7 @@ export const RegisterForm = () => {
             if (!schemaResult.success) {
               return schemaResult.error.errors[0].message;
             }
-            const res = await action(value);
+            const res = await action(schemaResult.data);
             if (!res.status) {
               toast.error(res.message);
               return;
