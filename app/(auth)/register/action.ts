@@ -1,12 +1,12 @@
-"use server";
+'use server';
 
-import formFactory, { schema } from "./form-instance";
+import formFactory, { schema } from './form-instance';
 const initialState = formFactory.initialFormState.values!;
 export type TResult = typeof initialState;
-import db from "@/db";
-import { user } from "@/db/schema";
-import argon2 from "argon2";
-import { eq } from "drizzle-orm";
+import db from '@/db';
+import { user } from '@/db/schema';
+import argon2 from 'argon2';
+import { eq } from 'drizzle-orm';
 
 const action = async (formData: TResult) => {
   const res = schema.safeParse(formData);
@@ -27,7 +27,7 @@ const action = async (formData: TResult) => {
 
   if (isAlreadyRegistered.length > 0) {
     return {
-      message: "Email already registered",
+      message: 'Email already registered',
       status: false,
     };
   }
@@ -38,7 +38,7 @@ const action = async (formData: TResult) => {
   });
 
   return {
-    message: "User registered successfully",
+    message: 'User registered successfully',
     status: true,
   };
 };

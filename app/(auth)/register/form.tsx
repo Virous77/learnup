@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import action, { TResult } from "./action";
-import formFactory, { schema } from "./form-instance";
-import ErrorText from "../shared/error-text";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import BounceLoader from "@/components/ui/bounceloader";
-import { useRouter } from "next/navigation";
+import action, { TResult } from './action';
+import formFactory, { schema } from './form-instance';
+import ErrorText from '../shared/error-text';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import BounceLoader from '@/components/ui/bounceloader';
+import { useRouter } from 'next/navigation';
 
 export const RegisterForm = () => {
   const { push } = useRouter();
@@ -28,9 +28,9 @@ export const RegisterForm = () => {
             }
             reset();
             toast.success(res.message);
-            push("/login");
+            push('/login');
           } catch (error) {
-            toast.error("Something went wrong");
+            toast.error('Something went wrong');
           }
         },
       },
@@ -39,7 +39,7 @@ export const RegisterForm = () => {
   const formErrors = useStore((formState) => formState.errors);
   const serverErrors = formErrors.reduce((acc, curr) => {
     if (!curr) return acc;
-    const [key, value] = curr.split(" | ");
+    const [key, value] = curr.split(' | ');
     const result = { ...acc, [key]: value };
     return result;
   }, {} as TResult);
@@ -50,12 +50,12 @@ export const RegisterForm = () => {
         e.preventDefault();
         handleSubmit();
       }}
-      className=" flex flex-col gap-3"
+      className="flex flex-col gap-3"
     >
       <Field name="name">
         {(field) => {
           return (
-            <fieldset className=" grid gap-2">
+            <fieldset className="grid gap-2">
               <Label htmlFor="name">Name</Label>
               <Input
                 name="name"
@@ -74,7 +74,7 @@ export const RegisterForm = () => {
       <Field name="email">
         {(field) => {
           return (
-            <fieldset className=" grid gap-2">
+            <fieldset className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 name="email"
@@ -113,7 +113,7 @@ export const RegisterForm = () => {
       >
         {([canSubmit, isPending]) => (
           <Button>
-            {isPending ? <BounceLoader color="bg-white" /> : "Create Account"}
+            {isPending ? <BounceLoader color="bg-white" /> : 'Create Account'}
           </Button>
         )}
       </Subscribe>

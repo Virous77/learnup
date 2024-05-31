@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { sql } from 'drizzle-orm';
 import {
   boolean,
   pgTable,
@@ -6,27 +6,27 @@ import {
   uuid,
   uniqueIndex,
   varchar,
-} from "drizzle-orm/pg-core";
+} from 'drizzle-orm/pg-core';
 
 export const user = pgTable(
-  "user",
+  'user',
   {
-    id: uuid("id").primaryKey().unique().defaultRandom(),
-    email: varchar("email").notNull().unique(),
-    name: varchar("name"),
-    image: varchar("image"),
-    created_at: timestamp("created_at")
+    id: uuid('id').primaryKey().unique().defaultRandom(),
+    email: varchar('email').notNull().unique(),
+    name: varchar('name'),
+    image: varchar('image'),
+    created_at: timestamp('created_at')
       .default(sql`now()`)
       .notNull(),
-    updated_at: timestamp("updated_at")
+    updated_at: timestamp('updated_at')
       .default(sql`now()`)
       .notNull(),
-    password: varchar("password").notNull(),
-    isVerified: boolean("isVerified").default(false).notNull(),
+    password: varchar('password').notNull(),
+    isVerified: boolean('isVerified').default(false).notNull(),
   },
   (table) => {
     return {
-      emailIndex: uniqueIndex("emailIndex").on(table.email),
+      emailIndex: uniqueIndex('emailIndex').on(table.email),
     };
   }
 );

@@ -1,5 +1,5 @@
-import { signIn } from "@/auth/auth";
-import { Button } from "@/components/ui/button";
+import { signIn } from '@/auth/auth';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -7,9 +7,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Icons } from "@/components/ui/icon";
-import Link from "next/link";
+} from '@/components/ui/card';
+import { Icons } from '@/components/ui/icon';
+import Link from 'next/link';
 
 type TAuth = {
   children: React.ReactNode;
@@ -18,14 +18,14 @@ type TAuth = {
 
 const AuthUI: React.FC<TAuth> = ({ children, type }) => {
   const description =
-    type === "register"
-      ? "Enter your credentials below to create your account"
-      : "Enter your credentials below to sign in to your account";
+    type === 'register'
+      ? 'Enter your credentials below to create your account'
+      : 'Enter your credentials below to sign in to your account';
   const title =
-    type === "register" ? "Create an account" : "Sign in to your account";
+    type === 'register' ? 'Create an account' : 'Sign in to your account';
 
   return (
-    <section className="md:w-[500px] w-[95%]">
+    <section className="w-[95%] md:w-[500px]">
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">{title}</CardTitle>
@@ -35,10 +35,10 @@ const AuthUI: React.FC<TAuth> = ({ children, type }) => {
           <div className="grid grid-cols-2 gap-6">
             <form
               action={async () => {
-                "use server";
-                await signIn("github", {
+                'use server';
+                await signIn('github', {
                   redirect: true,
-                  redirectTo: "/",
+                  redirectTo: '/',
                 });
               }}
               className="w-full"
@@ -50,10 +50,10 @@ const AuthUI: React.FC<TAuth> = ({ children, type }) => {
             </form>
             <form
               action={async () => {
-                "use server";
-                await signIn("google", {
+                'use server';
+                await signIn('google', {
                   redirect: true,
-                  redirectTo: "/",
+                  redirectTo: '/',
                 });
               }}
               className="w-full"
@@ -77,17 +77,17 @@ const AuthUI: React.FC<TAuth> = ({ children, type }) => {
           {children}
         </CardContent>
         <CardFooter className="flex items-center justify-center">
-          <div className="text-center flex gap-2 items-center">
-            <span className="text-muted-foreground text-[14px]">
-              {type === "register"
-                ? "Already have an account?"
+          <div className="flex items-center gap-2 text-center">
+            <span className="text-[14px] text-muted-foreground">
+              {type === 'register'
+                ? 'Already have an account?'
                 : "Don't have an account?"}
             </span>
             <Link
-              href={type === "register" ? "/login" : "/register"}
-              className="text-primary text-[14px] hover:underline hover:underline-offset-4"
+              href={type === 'register' ? '/login' : '/register'}
+              className="text-[14px] text-primary hover:underline hover:underline-offset-4"
             >
-              {type === "register" ? "Sign in" : "Sign up"}
+              {type === 'register' ? 'Sign in' : 'Sign up'}
             </Link>
           </div>
         </CardFooter>

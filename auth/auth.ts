@@ -1,20 +1,20 @@
-import db from "@/db";
-import { user } from "@/db/schema";
-import NextAuth, { AuthError } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import Github from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
-import { hc } from "hono/client";
-import { ICreateUser } from "@/app/api/v1/[[...route]]/route";
-import { eq } from "drizzle-orm";
+import db from '@/db';
+import { user } from '@/db/schema';
+import NextAuth, { AuthError } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import Github from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
+import { hc } from 'hono/client';
+import { ICreateUser } from '@/app/api/v1/[[...route]]/route';
+import { eq } from 'drizzle-orm';
 
-const client = hc<ICreateUser>("http://localhost:3000");
+const client = hc<ICreateUser>('http://localhost:3000');
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
   providers: [
     Credentials({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
         email: {},
         id: {},
@@ -39,7 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
   callbacks: {
     session: async ({ session, token }) => {
@@ -48,11 +48,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     signIn: async ({ user: userProvider, account }) => {
       try {
-        if (account?.provider === "github" || account?.provider === "google") {
+        if (account?.provider === 'github' || account?.provider === 'google') {
           const { image, name, email } = userProvider;
 
           if (!email) {
-            throw new AuthError("Failed to sign in");
+            throw new AuthError('Failed to sign in');
           }
 
           const isUserExist = await db
@@ -71,13 +71,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             });
           }
           return true;
-        } else if (account?.provider === "credentials") {
+        } else if (account?.provider === 'credentials') {
           return true;
         }
         return false;
       } catch (error) {
         console.log(error);
-        throw new AuthError("Failed to sign in");
+        throw new AuthError('Failed to sign in');
       }
     },
   },

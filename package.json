@@ -10,7 +10,8 @@
     "db:migrate": "node db/migrate.js",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "prettier": "npx prettier --write ."
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.1",
@@ -32,11 +33,11 @@
     "input-otp": "^1.2.4",
     "lucide-react": "^0.378.0",
     "nanoid": "^5.0.7",
-    "next": "14.2.3",
+    "next": "^15.0.0-rc.0",
     "next-auth": "^5.0.0-beta.17",
     "next-themes": "^0.3.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19.0.0-rc-6d3110b4d9-20240531",
+    "react-dom": "^19.0.0-rc-6d3110b4d9-20240531",
     "resend": "^3.2.0",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
@@ -51,6 +52,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.6.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.5"
   }

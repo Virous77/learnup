@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { Separator } from "../ui/separator";
-import { auth } from "../../auth/auth";
-import ProfileDropdown from "../profile/profile-dropdown";
-import db from "@/db";
-import { user } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import Link from 'next/link';
+import { Separator } from '../ui/separator';
+import { auth } from '../../auth/auth';
+import ProfileDropdown from '../profile/profile-dropdown';
+import db from '@/db';
+import { user } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
 const Navbar = async () => {
   const session = await auth();
@@ -12,35 +12,35 @@ const Navbar = async () => {
   const currentUser = await db.select().from(user).where(eq(user.email, email));
 
   return (
-    <nav className=" w-full fixed top-0 left-0 z-10  backdrop-blur dark:bg-[#0c0a09]/60 group shadow-lg">
-      <header className="md:px-16 px-4  py-2">
-        <ul className="flex  items-center h-16 justify-between">
+    <nav className="group fixed left-0 top-0 z-10 w-full shadow-lg backdrop-blur dark:bg-[#0c0a09]/60">
+      <header className="px-4 py-2 md:px-16">
+        <ul className="flex h-16 items-center justify-between">
           <li>
             <Link
               href="/"
-              aria-label="LearnX Home Page"
-              className="bg-primary  rounded-[99px] inline-block px-6  py-2 "
+              aria-label="Trells Home Page"
+              className="inline-block rounded-[99px] bg-primary px-6 py-2"
             >
-              <h1 className="m-0 p-0 h-3 text-[22px] font-bold">LearnX</h1>
-              <small className="text-[9px] inline-block  ml-[14px] mt-[11px]">
-                Learn and Grow
+              <h1 className="m-0 h-3 p-0 text-[22px] font-bold">Trells</h1>
+              <small className="ml-[14px] mt-[11px] inline-block text-[9px]">
+                Manage Tasks
               </small>
             </Link>
           </li>
 
           {!session?.user?.email ? (
-            <li className=" md:bg-accent md:rounded-[99px] inline-block md:px-6 py-2">
-              <div className="bg-primary md:px-4 px-6 md:py-2 py-3 flex items-center gap-5 rounded-[99px]">
+            <li className="inline-block py-2 md:rounded-[99px] md:bg-accent md:px-6">
+              <div className="flex items-center gap-5 rounded-[99px] bg-primary px-6 py-3 md:px-4 md:py-2">
                 <Link
                   href="/login"
-                  className="text-secondary font-[500]"
+                  className="font-[500] hover:underline hover:underline-offset-4"
                   aria-label="Login to your account"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="text-secondary font-[500]"
+                  className="font-[500] hover:underline hover:underline-offset-4"
                   aria-label="Create a new account"
                 >
                   Sign Up
@@ -54,7 +54,7 @@ const Navbar = async () => {
           )}
         </ul>
       </header>
-      <Separator className="w-full hidden group-hover:flex" />
+      <Separator className="hidden w-full group-hover:flex" />
     </nav>
   );
 };

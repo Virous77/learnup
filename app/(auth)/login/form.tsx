@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import action, { TResult } from "./action";
-import formFactory, { schema } from "./form-instance";
-import ErrorText from "../shared/error-text";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import BounceLoader from "@/components/ui/bounceloader";
+import action, { TResult } from './action';
+import formFactory, { schema } from './form-instance';
+import ErrorText from '../shared/error-text';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import BounceLoader from '@/components/ui/bounceloader';
 
 const LoginForm = () => {
   const { useStore, Subscribe, handleSubmit, Field } = formFactory.useForm({
@@ -25,7 +25,7 @@ const LoginForm = () => {
             return;
           }
         } catch (error) {
-          toast.error("Something went wrong");
+          toast.error('Something went wrong');
         }
       },
     },
@@ -34,7 +34,7 @@ const LoginForm = () => {
   const formErrors = useStore((formState) => formState.errors);
   const serverErrors = formErrors.reduce((acc, curr) => {
     if (!curr) return acc;
-    const [key, value] = curr.split(" | ");
+    const [key, value] = curr.split(' | ');
     const result = { ...acc, [key]: value };
     return result;
   }, {} as TResult);
@@ -45,12 +45,12 @@ const LoginForm = () => {
         e.preventDefault();
         handleSubmit();
       }}
-      className=" flex flex-col gap-3"
+      className="flex flex-col gap-3"
     >
       <Field name="email">
         {(field) => {
           return (
-            <fieldset className=" grid gap-2">
+            <fieldset className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 name="email"
@@ -88,7 +88,7 @@ const LoginForm = () => {
         selector={(formState) => [formState.canSubmit, formState.isSubmitting]}
       >
         {([canSubmit, isPending]) => (
-          <Button>{isPending ? <BounceLoader /> : "Login"}</Button>
+          <Button>{isPending ? <BounceLoader /> : 'Login'}</Button>
         )}
       </Subscribe>
     </form>
