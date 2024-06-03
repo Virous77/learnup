@@ -35,6 +35,8 @@ const createUser = app.post(
         image,
         password: hash,
         isVerified: true,
+        user_name: email.split('@')[0],
+        visibleName: name,
       });
       sendEmail(password, type);
       return c.json({ status: true });

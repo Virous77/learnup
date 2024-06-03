@@ -25,6 +25,7 @@
     "@tanstack/react-form": "^0.19.4",
     "@tanstack/zod-form-adapter": "^0.19.4",
     "argon2": "^0.40.1",
+    "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",

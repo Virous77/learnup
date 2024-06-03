@@ -35,6 +35,8 @@ const action = async (formData: TResult) => {
   await db.insert(user).values({
     ...rest,
     password: hashedPassword,
+    user_name: rest.email.split('@')[0],
+    visibleName: rest.name,
   });
 
   return {
