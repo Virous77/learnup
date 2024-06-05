@@ -29,7 +29,7 @@ const Navbar = async () => {
           </li>
 
           {!session?.user?.email ? (
-            <li className="inline-block py-2 md:rounded-[99px] md:bg-accent md:px-6">
+            <li className="inline-block py-2 md:rounded-[99px] md:bg-accent md:px-4">
               <div className="flex items-center gap-5 rounded-[99px] bg-primary px-6 py-3 md:px-4 md:py-2">
                 <Link
                   href="/login"
@@ -37,13 +37,6 @@ const Navbar = async () => {
                   aria-label="Login to your account"
                 >
                   Login
-                </Link>
-                <Link
-                  href="/register"
-                  className="font-[500] hover:underline hover:underline-offset-4"
-                  aria-label="Create a new account"
-                >
-                  Sign Up
                 </Link>
               </div>
             </li>

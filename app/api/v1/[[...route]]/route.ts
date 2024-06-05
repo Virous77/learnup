@@ -39,9 +39,17 @@ const createUser = app.post(
         visibleName: name,
       });
       sendEmail(password, type);
-      return c.json({ status: true });
+      return c.json({
+        status: true,
+        message: 'User created successfully',
+        data: null,
+      });
     } catch (error) {
-      return c.json({ status: false });
+      return c.json({
+        status: false,
+        message: 'Failed to create user',
+        data: null,
+      });
     }
   }
 );

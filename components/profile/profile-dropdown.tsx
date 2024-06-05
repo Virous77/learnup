@@ -8,10 +8,11 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import Link from 'next/link';
-import { Settings } from 'lucide-react';
+import { CircleUserRound, Settings } from 'lucide-react';
 import { IUser } from '@/db/schema';
 import { signOut } from '@/auth/auth';
 import { Button } from '../ui/button';
+import ThemeSwitcher from '../theme';
 
 type TProfile = {
   user: IUser;
@@ -43,13 +44,27 @@ const ProfileDropdown: React.FC<TProfile> = ({ user }) => {
         <DropdownMenuGroup className="mt-4 px-0">
           <DropdownMenuItem className="cursor-pointer rounded-[0] px-0 text-muted-foreground">
             <Link
+              href={`/user/${user.user_name}`}
+              className="flex w-full items-center justify-between px-3"
+              aria-label="user profile"
+            >
+              <span>Profile</span>
+              <CircleUserRound size={18} />
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer rounded-[0] px-0 text-muted-foreground">
+            <Link
               href="/profile"
               className="flex w-full items-center justify-between px-3"
               aria-label="Account Settings"
             >
-              <p>Account Settings</p>
+              <span>Account Settings</span>
               <Settings size={18} />
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex cursor-pointer items-center justify-between rounded-[0] px-3 text-muted-foreground">
+            <span>Theme</span>
+            <ThemeSwitcher />
           </DropdownMenuItem>
 
           <DropdownMenuItem className="cursor-pointer rounded-[0] px-0 text-muted-foreground">
